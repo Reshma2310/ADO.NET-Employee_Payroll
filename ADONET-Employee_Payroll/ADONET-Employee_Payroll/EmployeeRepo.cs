@@ -62,7 +62,7 @@ namespace ADONET_Employee_Payroll
             connect.Close();
         }
 
-        /*public void CreateNewContact()
+        public void CreateNewContact()
         {
             SqlConnection connect = new SqlConnection(dbpath);
             using (connect)
@@ -77,7 +77,7 @@ namespace ADONET_Employee_Payroll
                 model.Start = DateTime.Now;
                 Console.WriteLine("Enter Gender");
                 model.Gender = Console.ReadLine();
-                SqlCommand sql = new SqlCommand("SP_EmployeePayroll", connect);                    
+                SqlCommand sql = new SqlCommand("SP_Employee_Payroll", connect);                    
                 sql.CommandType = CommandType.StoredProcedure;
                 sql.Parameters.AddWithValue("@NAME", model.Name);
                 sql.Parameters.AddWithValue("@SALARY", model.Salary);
@@ -87,7 +87,7 @@ namespace ADONET_Employee_Payroll
                 Console.WriteLine("Record created successfully.");
                 connect.Close();                    
                 }
-        }*/
+        }
         public void updateDetails()
         {            
             SqlConnection connect = new SqlConnection(dbpath);
@@ -100,7 +100,7 @@ namespace ADONET_Employee_Payroll
                     Console.WriteLine("Enter basic pay to update:");
                     decimal salary = Convert.ToDecimal(Console.ReadLine());
                     connect.Open();
-                    string query = "update employee_payroll set salary =" + salary + "where name='" + name + "'";
+                    string query = "update Employee_Payroll set salary =" + salary + "where name='" + name + "'";
                     SqlCommand command = new SqlCommand(query, connect);
                     command.ExecuteNonQuery();
                     Console.WriteLine("Details updated successfully.");
@@ -110,6 +110,16 @@ namespace ADONET_Employee_Payroll
             {
                 Console.WriteLine("Details are not updated");
             }
-        }        
+        }
+        public void deleteEmployeeDetails()
+        {
+            SqlConnection connect = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Payroll_Service;Integrated Security=True");
+            connect.Open();
+            string query = @"DELETE FROM Employee_Payroll where ID = '20'";
+            SqlCommand cmd = new SqlCommand(query, connect);
+            object res = cmd.ExecuteScalar();
+            connect.Close();
+
+        }
     }
 }

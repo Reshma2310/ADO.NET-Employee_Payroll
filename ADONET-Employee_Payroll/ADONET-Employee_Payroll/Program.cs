@@ -2,5 +2,6 @@
 ADONET_Employee_Payroll.PayrollModelClass modelClass = new ADONET_Employee_Payroll.PayrollModelClass();
 payroll.ConnectionOfDatabase();
 //payroll.CreateNewContact();
-payroll.updateDetails();
+//payroll.updateDetails();
+payroll.deleteEmployeeDetails();
 payroll.RetrieveDataFromDatabase();
