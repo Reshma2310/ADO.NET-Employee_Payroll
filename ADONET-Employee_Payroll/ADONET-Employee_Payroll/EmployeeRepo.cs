@@ -19,7 +19,7 @@ namespace ADONET_Employee_Payroll
                 connect.Open();
                 using (connect)
                 {
-                    Console.WriteLine("Database connectivity successful.");
+                    Console.WriteLine("Database connectivity successful");
                 }
                 connect.Close();
             }
@@ -30,7 +30,8 @@ namespace ADONET_Employee_Payroll
         }
         public void RetrieveDataFromDatabase()
         {
-            PayrollModelClass profile = new PayrollModelClass();
+            PayrollModelClass model = new PayrollModelClass();
+            SqlConnection connect = new SqlConnection(dbpath);
             connect.Open();
             using (connect)
             {
@@ -40,24 +41,75 @@ namespace ADONET_Employee_Payroll
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    Console.WriteLine("ID\t\tName\t\tSalary\t\t\tDate\n");
+                    Console.WriteLine("ID\tName\t\tSalary\t\tDate\t\t\t\tGender\n");
                     while (reader.Read())
                     {
-                        profile.ID = reader.GetInt32(0);
-                        profile.Name = reader.GetString(1);
-                        profile.Salary = reader.GetDouble(2);
-                        profile.Start = reader.GetDateTime(3);
-                        Console.WriteLine(profile.ID + "\t\t" + profile.Name + "\t\t" + profile.Salary + "\t\t" + profile.Start);
+                        model.ID = reader.GetInt32(0);
+                        model.Name = reader.GetString(1);
+                        model.Salary = reader.GetDouble(2);
+                        model.Start = reader.GetDateTime(3);
+                        model.Gender = reader.GetString(4);
+                        Console.WriteLine(model.ID + "\t" + model.Name + "\t\t" + model.Salary + "\t\t" + model.Start + "\t\t" + model.Gender);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Records not found in Database.");
+                    Console.WriteLine("Records not found in Database");
                 }
                 reader.Close();
 
             }
             connect.Close();
         }
+
+        /*public void CreateNewContact()
+        {
+            SqlConnection connect = new SqlConnection(dbpath);
+            using (connect)
+                {
+                connect.Open();
+                ADONET_Employee_Payroll.PayrollModelClass model = new ADONET_Employee_Payroll.PayrollModelClass();
+                Console.WriteLine("Enter Name");
+                model.Name = Console.ReadLine();
+                Console.WriteLine("Enter Salary");
+                model.Salary = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Enter a Year,Month,Date");
+                model.Start = DateTime.Now;
+                Console.WriteLine("Enter Gender");
+                model.Gender = Console.ReadLine();
+                SqlCommand sql = new SqlCommand("SP_EmployeePayroll", connect);                    
+                sql.CommandType = CommandType.StoredProcedure;
+                sql.Parameters.AddWithValue("@NAME", model.Name);
+                sql.Parameters.AddWithValue("@SALARY", model.Salary);
+                sql.Parameters.AddWithValue("@START", model.Start);
+                sql.Parameters.AddWithValue("@Gender", model.Gender);
+                sql.ExecuteNonQuery();
+                Console.WriteLine("Record created successfully.");
+                connect.Close();                    
+                }
+        }*/
+        public void updateDetails()
+        {            
+            SqlConnection connect = new SqlConnection(dbpath);
+            try
+            {
+                using (connect)
+                {
+                    Console.WriteLine("Enter name of employee to update basic pay:");
+                    string name = Console.ReadLine();
+                    Console.WriteLine("Enter basic pay to update:");
+                    decimal salary = Convert.ToDecimal(Console.ReadLine());
+                    connect.Open();
+                    string query = "update employee_payroll set salary =" + salary + "where name='" + name + "'";
+                    SqlCommand command = new SqlCommand(query, connect);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Details updated successfully.");
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Details are not updated");
+            }
+        }        
     }
 }
