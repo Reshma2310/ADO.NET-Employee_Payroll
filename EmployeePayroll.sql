@@ -101,14 +101,3 @@ EXEC [dbo].[SPEmployeePayRoll] @Name='Dastagiri',@Salary='10000',@Start = '2012-
 GO
 
 SELECT * FROM Employee_PayRoll
-
-CREATE PROCEDURE SP_DemoProg (@FirstName varchar(255),@Address varchar(255),@City varchar(30))
-AS
-BEGIN
-SET NOCOUNT ON; 
-INSERT INTO PersonsDetails([FirstName],[Address],[City]) VALUES(@FirstName,@Address,@City)
-END
-GO
-;
-EXEC [dbo].[SP_DemoProg] @FirstName='Khajabi',@Address='Knl',@City = 'Kurnool';
-GO
