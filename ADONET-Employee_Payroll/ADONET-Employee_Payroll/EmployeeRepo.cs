@@ -10,7 +10,7 @@ namespace ADONET_Employee_Payroll
 {
     public class EmployeeRepo
     {
-        public static string dbpath = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Payroll_Service;Integrated Security=True";         
+        public static string dbpath = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Payroll_Service;Integrated Security=True";
         public void ConnectionOfDatabase()
         {
             try
