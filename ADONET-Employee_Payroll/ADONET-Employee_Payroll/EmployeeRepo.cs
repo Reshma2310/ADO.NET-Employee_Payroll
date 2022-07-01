@@ -10,7 +10,7 @@ namespace ADONET_Employee_Payroll
 {
     public class EmployeeRepo
     {
-        public static string dbpath = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Payroll_Service;Integrated Security=True";    
+        public static string dbpath = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Payroll_Service;Integrated Security=True";
         public void ConnectionOfDatabase()
         {
             try
@@ -89,10 +89,10 @@ namespace ADONET_Employee_Payroll
                 }
         }
         public void updateDetails()
-        {            
-            SqlConnection connect = new SqlConnection(dbpath);
+        {                        
             try
             {
+                SqlConnection connect = new SqlConnection(dbpath);
                 using (connect)
                 {
                     Console.WriteLine("Enter name of employee to update basic pay:");
@@ -112,7 +112,7 @@ namespace ADONET_Employee_Payroll
             }
         }
         public void DeleteEmployeeDetails()
-        {
+        {           
             SqlConnection connect = new SqlConnection(dbpath);
             try
             {
